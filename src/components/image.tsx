@@ -10,7 +10,7 @@ interface CustomImageProps extends Omit<ImageProps, 'src'> {
 export const Image: React.FC<CustomImageProps> = ({ 
     alt = 'image', 
     src, 
-    priority, 
+    priority = false, 
     wrapperClassName = '', 
     ...props 
 }) => {
@@ -19,15 +19,15 @@ export const Image: React.FC<CustomImageProps> = ({
             {src ? (
                 <NextJsImage 
                     alt={alt} 
-                    priority={true} 
+                    priority={priority} 
                     width={3840} 
                     height={2160} 
                     src={typeof src === 'string' ? src : src.src} 
                     {...props} 
-                    style={{ ...props?.style }} 
+                    style={{ ...props.style }} 
                 />
             ) : (
-                <div {...props} className={`${props?.className} flex items-center justify-center bg-gray-800`}>
+                <div {...props} className={`${props.className || ''} flex items-center justify-center bg-gray-800`}>
                     <InsertPhotoOutlinedIcon className="text-[50px] text-zinc-300" />
                 </div>
             )}
@@ -39,7 +39,7 @@ export const Image: React.FC<CustomImageProps> = ({
 export const NativeImage: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = (props) => {
     return (
         <div className="relative">
-            <img fetchPriority="high" {...props} style={{ ...props?.style }} />
+            <img fetchPriority="high" {...props} style={{ ...props.style }} />
             <div className="absolute inset-0 bg-transparent opacity-75"></div>
         </div>
     );

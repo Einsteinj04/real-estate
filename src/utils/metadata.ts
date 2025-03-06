@@ -1,5 +1,5 @@
-'use server';
-import { SUBDOMAINS, SITE_DATA } from '@/config';
+"use server";
+import { SUBDOMAINS, SITE_DATA } from "@/config";
 
 interface Metadata {
 	applicationName: string;
@@ -13,9 +13,9 @@ interface Metadata {
 			index: boolean;
 			follow: boolean;
 			noimageindex: boolean;
-			'max-video-preview': number;
-			'max-image-preview': string | number;
-			'max-snippet': number;
+			"max-video-preview": number;
+			"max-image-preview": string | number;
+			"max-snippet": number;
 		};
 	};
 	appleWebApp: {
@@ -27,8 +27,8 @@ interface Metadata {
 
 const metadata: Metadata = {
 	applicationName: SITE_DATA.NAME,
-	manifest: '/manifest.json',
-	referrer: 'origin-when-cross-origin',
+	manifest: "/manifest.json",
+	referrer: "origin-when-cross-origin",
 	robots: {
 		index: false,
 		follow: false,
@@ -37,19 +37,19 @@ const metadata: Metadata = {
 			index: false,
 			follow: false,
 			noimageindex: true,
-			'max-video-preview': -1,
-			'max-image-preview': 'large',
-			'max-snippet': -1,
+			"max-video-preview": -1,
+			"max-image-preview": "large",
+			"max-snippet": -1,
 		},
 	},
 	appleWebApp: {
 		capable: true,
-		statusBarStyle: 'default',
+		statusBarStyle: "default",
 	},
 	other: {
-		'mobile-web-app-capable': 'yes',
-		'apple-mobile-web-app-capable': 'yes',
-		'apple-mobile-web-app-status-bar-style': 'black-translucent',
+		"mobile-web-app-capable": "yes",
+		"apple-mobile-web-app-capable": "yes",
+		"apple-mobile-web-app-status-bar-style": "black-translucent",
 	},
 };
 
@@ -60,9 +60,9 @@ interface MetaDataProps {
 }
 
 const keywords: string[] = [];
-const description = '';
-const ogDescription = '';
-const twitterDescription = '';
+const description = "";
+const ogDescription = "";
+const twitterDescription = "";
 
 const generateMetaData = async ({ title, host, url }: MetaDataProps): Promise<Record<string, any>> => {
 	switch (host) {
@@ -70,7 +70,7 @@ const generateMetaData = async ({ title, host, url }: MetaDataProps): Promise<Re
 			return {
 				...metadata,
 				title,
-				metadataBase: new URL(`${SUBDOMAINS.ROOT}`),
+				metadataBase: new URL(SUBDOMAINS.ROOT),
 				alternates: { canonical: url },
 				description,
 				keywords,
@@ -83,11 +83,11 @@ const generateMetaData = async ({ title, host, url }: MetaDataProps): Promise<Re
 						{ url: `${SUBDOMAINS.ROOT}/icons/og.png`, width: 800, height: 600 },
 						{ url: `${SUBDOMAINS.ROOT}/icons/og.png`, width: 1920, height: 1920 },
 					],
-					locale: 'en_US',
-					type: 'website',
+					locale: "en_US",
+					type: "website",
 				},
 				twitter: {
-					card: 'summary',
+					card: "summary",
 					title,
 					description: twitterDescription,
 					images: [`${SUBDOMAINS.ROOT}/icons/og.png`],
@@ -101,9 +101,9 @@ const generateMetaData = async ({ title, host, url }: MetaDataProps): Promise<Re
 						index: true,
 						follow: true,
 						noimageindex: false,
-						'max-video-preview': -1,
-						'max-image-preview': 'large',
-						'max-snippet': -1,
+						"max-video-preview": -1,
+						"max-image-preview": "large",
+						"max-snippet": -1,
 					},
 				},
 			};
@@ -111,13 +111,13 @@ const generateMetaData = async ({ title, host, url }: MetaDataProps): Promise<Re
 			return {
 				...metadata,
 				title,
-				metadataBase: new URL(`${SUBDOMAINS.ADMIN}`),
+				metadataBase: new URL(SUBDOMAINS.ADMIN),
 			};
 		// case SUBDOMAINS.ACCOUNTS:
 		// 	return {
 		// 		...metadata,
 		// 		title,
-		// 		metadataBase: new URL(`${SUBDOMAINS.ACCOUNTS}`),
+		// 		metadataBase: new URL(SUBDOMAINS.ACCOUNTS),
 		// 	};
 		default:
 			return {};

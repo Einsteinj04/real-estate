@@ -28,7 +28,7 @@ export const SmoothScrollToLink = ({
       }
     };
 
-    const anchors = document.querySelectorAll(element);
+    const anchors = document.querySelectorAll<HTMLElement>(element);
     anchors.forEach((anchor) => anchor.addEventListener("click", (e) => handleScroll(e, anchor)));
 
     return () => {
@@ -38,20 +38,19 @@ export const SmoothScrollToLink = ({
 };
 
 // Hide/Show Navbar on Scroll
-
 interface HideShowNavbarProps {
   initialScrollLength: number;
   furtherScrollLength: number;
 }
 
 export const HideShowNavbarOnScroll = ({ initialScrollLength, furtherScrollLength }: HideShowNavbarProps) => {
-  const [hideNavbar, setHideNavBar] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const lastScrollY = useRef(0); // useRef for tracking previous scroll position
+  const [hideNavbar, setHideNavBar] = useState<boolean>(false);
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const lastScrollY = useRef<number>(0);
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
-    
+
     setIsScrolled(currentScrollY > initialScrollLength);
 
     if (currentScrollY > furtherScrollLength && currentScrollY > lastScrollY.current) {
@@ -60,7 +59,7 @@ export const HideShowNavbarOnScroll = ({ initialScrollLength, furtherScrollLengt
       setHideNavBar(false);
     }
 
-    lastScrollY.current = currentScrollY; // Updating useRef value
+    lastScrollY.current = currentScrollY;
   };
 
   useEffect(() => {
@@ -71,50 +70,22 @@ export const HideShowNavbarOnScroll = ({ initialScrollLength, furtherScrollLengt
   return { hideNavbar, isScrolled };
 };
 
-
-// export const HideShowNavbarOnScroll = ({
-//   targetRef,
-//   className,
-//   startPosition,
-// }: {
-//   targetRef: RefObject<HTMLElement>;
-//   className: string;
-//   startPosition: number;
-// }) => {
-//   useEffect(() => {
-//     let prevScrollpos = window.pageYOffset;
-
-//     const handleFunction = () => {
-//       if (!targetRef?.current) return;
-//       if (window.scrollY === 0) targetRef.current.classList.remove(...className.split(" "));
-//       if (window.scrollY < startPosition) return;
-
-//       let currentScrollPos = window.pageYOffset;
-//       if (prevScrollpos > currentScrollPos) targetRef.current.classList.remove(...className.split(" "));
-//       else targetRef.current.classList.add(...className.split(" "));
-//       prevScrollpos = currentScrollPos;
-//     };
-
-//     window.addEventListener("scroll", handleFunction);
-//     return () => window.removeEventListener("scroll", handleFunction);
-//   }, [targetRef, className, startPosition]);
-// };
-
 // Change class name at a specific scroll position
-export const ChangeClassNameAtPosition = ({
-  targetRef,
-  startPosition,
-  className,
-}: {
+interface ChangeClassNameAtPositionProps {
   targetRef: RefObject<HTMLElement>;
   startPosition: number;
   className: string;
-}) => {
+}
+
+export const ChangeClassNameAtPosition = ({ targetRef, startPosition, className }: ChangeClassNameAtPositionProps) => {
   useEffect(() => {
     const handleFunction = () => {
-      if (!targetRef?.current) return;
-      if (window.scrollY > startPosition) targetRef.current.classList.add(...className.split(" "));
-      else targetRef.current.classList.remove(...className.split(" "));
+      if (!targetRef.current) return;
+      if (window.scrollY > startPosition) {
+        targetRef.current.classList.add(...className.split(" "));
+      } else {
+        targetRef.current.classList.remove(...className.split(" "));
+      }
     };
 
     window.addEventListener("scroll", handleFunction);
@@ -123,8 +94,12 @@ export const ChangeClassNameAtPosition = ({
 };
 
 // Load more data when reaching the bottom of the window
-export const LoadMoreDataAtWindowBottom = ({ fetching }: { fetching: boolean }) => {
-  const [loadMore, setLoadMore] = useState(false);
+interface LoadMoreDataAtWindowBottomProps {
+  fetching: boolean;
+}
+
+export const LoadMoreDataAtWindowBottom = ({ fetching }: LoadMoreDataAtWindowBottomProps) => {
+  const [loadMore, setLoadMore] = useState<boolean>(false);
   const [scrollPos, setScrollPos] = useState<number>(0);
 
   useEffect(() => {
@@ -147,16 +122,15 @@ export const LoadMoreDataAtWindowBottom = ({ fetching }: { fetching: boolean }) 
 };
 
 // Show or hide element at a specific scroll position
-export const ShowElementAtPosition = ({
-  targetRef,
-  position,
-}: {
+interface ShowElementAtPositionProps {
   targetRef: RefObject<HTMLElement>;
   position: number;
-}) => {
+}
+
+export const ShowElementAtPosition = ({ targetRef, position }: ShowElementAtPositionProps) => {
   useEffect(() => {
     const handleFunction = () => {
-      if (!targetRef?.current) return;
+      if (!targetRef.current) return;
       if (window.scrollY > position || document.documentElement.scrollTop > position) {
         targetRef.current.style.display = "block";
       } else {

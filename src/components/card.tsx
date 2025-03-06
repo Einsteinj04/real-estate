@@ -2,13 +2,13 @@
 import React, { useRef, useState, useEffect } from "react";
 import Slider from "react-slick";
 import Link from "next/link";
-import { Card, CardContent, Typography, IconButton } from "@mui/material";
+import { Card, IconButton } from "@mui/material";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { Image } from "@/components";
 import { APP_ROUTES, ASSETS } from "@/config";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import {ApartmentOutlined,HotelOutlined} from '@mui/icons-material';
+import {HotelOutlined} from '@mui/icons-material';
 
 interface CardItem {
   title: string;
