@@ -1,7 +1,6 @@
 "use server";
 import { SUBDOMAINS, SITE_DATA } from "@/config";
 
-// Define more specific Metadata type for better type safety
 interface GoogleBotMetadata {
   index: boolean;
   follow: boolean;
@@ -29,7 +28,7 @@ interface Metadata {
   referrer: string;
   robots: RobotsMetadata;
   appleWebApp: AppleWebAppMetadata;
-  other: Record<string, string>; // Keeping this as Record<string, string> for flexibility
+  other: Record<string, string>;
 }
 
 const metadata: Metadata = {
@@ -60,7 +59,6 @@ const metadata: Metadata = {
   },
 };
 
-// Define the expected properties for generateMetaData
 interface MetaDataProps {
   title: string;
   host: string;
@@ -68,40 +66,39 @@ interface MetaDataProps {
 }
 
 const keywords: string[] = [];
-const description = ""; // Consider setting dynamic description or use default value
-const ogDescription = ""; // Consider setting dynamic ogDescription or use default value
-const twitterDescription = ""; // Consider setting dynamic twitterDescription or use default value
+const description: string | undefined = ""; 
+const ogDescription: string | undefined = ""; 
+const twitterDescription: string | undefined = ""; 
 
-// Define the return type as Record<string, any> or a more specific type for better safety
-const generateMetaData = async ({ title, host, url }: MetaDataProps): Promise<Metadata | Record<string, any>> => {
+const generateMetaData = async ({ title, host, url }: MetaDataProps): Promise<Metadata | null> => {
   switch (host) {
-    case SUBDOMAINS.ROOT: // buildingplans.ng
+    case SUBDOMAINS.ROOT:
       return {
         ...metadata,
-        title,
-        metadataBase: new URL(SUBDOMAINS.ROOT),
-        alternates: { canonical: url },
-        description,
-        keywords,
-        openGraph: {
-          url,
-          title,
-          description: ogDescription,
-          siteName: SITE_DATA.NAME,
-          images: [
-            { url: `${SUBDOMAINS.ROOT}/icons/og.png`, width: 800, height: 600 },
-            { url: `${SUBDOMAINS.ROOT}/icons/og.png`, width: 1920, height: 1920 },
-          ],
-          locale: "en_US",
-          type: "website",
-        },
-        twitter: {
-          card: "summary",
-          title,
-          description: twitterDescription,
-          images: [`${SUBDOMAINS.ROOT}/icons/og.png`],
-          site: SITE_DATA.TWITTER_HANDLE,
-        },
+        // title,
+        // metadataBase: new URL(SUBDOMAINS.ROOT),
+        // alternates: { canonical: url },
+        // description,
+        // keywords,
+        // openGraph: {
+        //   url,
+        //   title,
+        //   description: ogDescription,
+        //   siteName: SITE_DATA.NAME,
+        //   images: [
+        //     { url: `${SUBDOMAINS.ROOT}/icons/og.png`, width: 800, height: 600 },
+        //     { url: `${SUBDOMAINS.ROOT}/icons/og.png`, width: 1920, height: 1920 },
+        //   ],
+        //   locale: "en_US",
+        //   type: "website",
+        // },
+        // twitter: {
+        //   card: "summary",
+        //   title,
+        //   description: twitterDescription,
+        //   images: [`${SUBDOMAINS.ROOT}/icons/og.png`],
+        //   site: SITE_DATA.TWITTER_HANDLE,
+        // },
         robots: {
           index: true,
           follow: true,
@@ -116,13 +113,13 @@ const generateMetaData = async ({ title, host, url }: MetaDataProps): Promise<Me
           },
         },
       };
-    case SUBDOMAINS.ADMIN:
-      return {
-        ...metadata,
-        title,
-        metadataBase: new URL(SUBDOMAINS.ADMIN),
-      };
-    // The ACCOUNTS subdomain handling is commented out; uncomment and modify as needed
+    // case SUBDOMAINS.ADMIN:
+    //   return {
+    //     ...metadata,
+    //     title,
+    //     metadataBase: new URL(SUBDOMAINS.ADMIN),
+    //   };
+    // Uncomment and modify if needed
     // case SUBDOMAINS.ACCOUNTS:
     //   return {
     //     ...metadata,
@@ -130,7 +127,7 @@ const generateMetaData = async ({ title, host, url }: MetaDataProps): Promise<Me
     //     metadataBase: new URL(SUBDOMAINS.ACCOUNTS),
     //   };
     default:
-      return {};
+      return null; // Return null instead of an empty object
   }
 };
 
