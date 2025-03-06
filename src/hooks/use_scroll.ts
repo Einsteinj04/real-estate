@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, RefObject, useRef } from "react";
+import { useEffect, useState, RefObject, useRef, useCallback } from "react";
 
 // Smooth scrolling function
 export const SmoothScrollToLink = ({
@@ -29,12 +29,16 @@ export const SmoothScrollToLink = ({
     };
 
     const anchors = document.querySelectorAll<HTMLElement>(element);
-    anchors.forEach((anchor) => anchor.addEventListener("click", (e) => handleScroll(e, anchor)));
+    anchors.forEach((anchor) =>
+      anchor.addEventListener("click", (e) => handleScroll(e, anchor))
+    );
 
     return () => {
-      anchors.forEach((anchor) => anchor.removeEventListener("click", (e) => handleScroll(e, anchor)));
+      anchors.forEach((anchor) =>
+        anchor.removeEventListener("click", (e) => handleScroll(e, anchor))
+      );
     };
-  }, [element, elementAttributeName]);
+  }, [element, elementAttributeName]); // Ensures the effect is called when element or elementAttributeName changes
 };
 
 // Hide/Show Navbar on Scroll
@@ -43,12 +47,15 @@ interface HideShowNavbarProps {
   furtherScrollLength: number;
 }
 
-export const HideShowNavbarOnScroll = ({ initialScrollLength, furtherScrollLength }: HideShowNavbarProps) => {
+export const HideShowNavbarOnScroll = ({
+  initialScrollLength,
+  furtherScrollLength,
+}: HideShowNavbarProps) => {
   const [hideNavbar, setHideNavBar] = useState<boolean>(false);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const lastScrollY = useRef<number>(0);
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
 
     setIsScrolled(currentScrollY > initialScrollLength);
@@ -60,12 +67,12 @@ export const HideShowNavbarOnScroll = ({ initialScrollLength, furtherScrollLengt
     }
 
     lastScrollY.current = currentScrollY;
-  };
+  }, [initialScrollLength, furtherScrollLength]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [handleScroll]);
 
   return { hideNavbar, isScrolled };
 };
@@ -77,7 +84,11 @@ interface ChangeClassNameAtPositionProps {
   className: string;
 }
 
-export const ChangeClassNameAtPosition = ({ targetRef, startPosition, className }: ChangeClassNameAtPositionProps) => {
+export const ChangeClassNameAtPosition = ({
+  targetRef,
+  startPosition,
+  className,
+}: ChangeClassNameAtPositionProps) => {
   useEffect(() => {
     const handleFunction = () => {
       if (!targetRef.current) return;
@@ -98,7 +109,9 @@ interface LoadMoreDataAtWindowBottomProps {
   fetching: boolean;
 }
 
-export const LoadMoreDataAtWindowBottom = ({ fetching }: LoadMoreDataAtWindowBottomProps) => {
+export const LoadMoreDataAtWindowBottom = ({
+  fetching,
+}: LoadMoreDataAtWindowBottomProps) => {
   const [loadMore, setLoadMore] = useState<boolean>(false);
   const [scrollPos, setScrollPos] = useState<number>(0);
 
@@ -109,7 +122,6 @@ export const LoadMoreDataAtWindowBottom = ({ fetching }: LoadMoreDataAtWindowBot
         setLoadMore(true);
         setScrollPos(window.scrollY);
       } else {
-        if (fetching) return;
         setLoadMore(false);
       }
     };
@@ -127,7 +139,10 @@ interface ShowElementAtPositionProps {
   position: number;
 }
 
-export const ShowElementAtPosition = ({ targetRef, position }: ShowElementAtPositionProps) => {
+export const ShowElementAtPosition = ({
+  targetRef,
+  position,
+}: ShowElementAtPositionProps) => {
   useEffect(() => {
     const handleFunction = () => {
       if (!targetRef.current) return;

@@ -39,7 +39,7 @@ export const Image: React.FC<CustomImageProps> = ({
 export const NativeImage: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = (props) => {
     return (
         <div className="relative">
-            <img fetchPriority="high" {...props} style={{ ...props.style }} />
+            <img alt={props.alt || ''} fetchPriority="high" {...props} style={{ ...props.style }} />
             <div className="absolute inset-0 bg-transparent opacity-75"></div>
         </div>
     );
