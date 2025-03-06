@@ -1,28 +1,35 @@
 "use server";
 import { SUBDOMAINS, SITE_DATA } from "@/config";
 
+// Define more specific Metadata type for better type safety
+interface GoogleBotMetadata {
+  index: boolean;
+  follow: boolean;
+  noimageindex: boolean;
+  "max-video-preview": number;
+  "max-image-preview": string | number;
+  "max-snippet": number;
+}
+
+interface RobotsMetadata {
+  index: boolean;
+  follow: boolean;
+  nocache: boolean;
+  googleBot: GoogleBotMetadata;
+}
+
+interface AppleWebAppMetadata {
+  capable: boolean;
+  statusBarStyle: string;
+}
+
 interface Metadata {
   applicationName: string;
   manifest: string;
   referrer: string;
-  robots: {
-    index: boolean;
-    follow: boolean;
-    nocache: boolean;
-    googleBot: {
-      index: boolean;
-      follow: boolean;
-      noimageindex: boolean;
-      "max-video-preview": number;
-      "max-image-preview": string | number;
-      "max-snippet": number;
-    };
-  };
-  appleWebApp: {
-    capable: boolean;
-    statusBarStyle: string;
-  };
-  other: Record<string, string>;
+  robots: RobotsMetadata;
+  appleWebApp: AppleWebAppMetadata;
+  other: Record<string, string>; // Keeping this as Record<string, string> for flexibility
 }
 
 const metadata: Metadata = {
@@ -53,6 +60,7 @@ const metadata: Metadata = {
   },
 };
 
+// Define the expected properties for generateMetaData
 interface MetaDataProps {
   title: string;
   host: string;
@@ -64,7 +72,8 @@ const description = ""; // Consider setting dynamic description or use default v
 const ogDescription = ""; // Consider setting dynamic ogDescription or use default value
 const twitterDescription = ""; // Consider setting dynamic twitterDescription or use default value
 
-const generateMetaData = async ({ title, host, url }: MetaDataProps): Promise<Record<string, any>> => {
+// Define the return type as Record<string, any> or a more specific type for better safety
+const generateMetaData = async ({ title, host, url }: MetaDataProps): Promise<Metadata | Record<string, any>> => {
   switch (host) {
     case SUBDOMAINS.ROOT: // buildingplans.ng
       return {
