@@ -1,0 +1,60 @@
+/* Social Icons Css */
+.social_icons a {
+	@apply relative z-[1] overflow-hidden rounded-[50%] w-[35px] h-[35px] md:w-[35px] md:h-[35px] flex items-center justify-center bg-transparent text-white;
+}
+
+.social_icons_color_reverse a {
+	@apply relative z-[1] overflow-hidden rounded-[50%] w-[35px] h-[35px] md:w-[35px] md:h-[35px] flex items-center justify-center bg-[#2EC1A04D] text-white;
+}
+
+.social_icons_color_reverse a::before,
+.social_icons a::before {
+	@apply absolute content-[""] top-0 left-0 w-0 h-full bg-white z-[-1];
+	transition: 0.6s;
+}
+
+.social_icons_color_reverse a:hover::before,
+.social_icons a:hover::before {
+	@apply w-full;
+}
+
+/* .social_icons_color_reverse a:hover,
+.social_icons a:hover {
+	@apply text-primary;
+} */
+
+.social_icons_color_reverse a .icon,
+.social_icons a .icon {
+	@apply text-[1.1rem] md:text-[1.5rem];
+}
+
+/* Button Css */
+.button {
+	@apply normal-case relative z-[1] overflow-hidden ease-linear duration-300 w-full text-[1rem] font-[600];
+	border: 2px solid var(--background-color) !important;
+	background: var(--background-color) !important;
+	color: var(--text-color) !important;
+	text-transform: none !important;
+}
+
+.button:hover {
+	background: var(--text-color) !important;
+	color: var(--background-color) !important;
+}
+
+.button::before {
+	content: '' !important;
+	position: absolute !important;
+	top: 0 !important;
+	left: 0 !important;
+	width: 0 !important;
+	height: 100% !important;
+	color: var(--background-color) !important;
+	background: var(--text-color) !important;
+	z-index: -1 !important;
+	transition: 0.4s !important;
+}
+
+.button:hover::before {
+	width: 100% !important;
+}

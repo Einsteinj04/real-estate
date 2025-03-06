@@ -1,0 +1,180 @@
+
+/* ALL CSS STYLES USUALLY TOGGLED BY JAVASCRIPT AND AS SUCH CANNOT BE IN THE MODULE CSS FORMAT ARE DEFINED HERE */
+@import url(./custom.css);
+
+
+/* ALL CSS ROOTS FOR THIS PROJECT ALL DEFINED HERE */
+@import url(./root.css);
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* ALL CSS ANIMATIONS KEYFRAMES ARE DEFINED HERE */
+/* @import url(./keyframes.css); */
+
+
+/* ALL CSS ANIMATIONS ARE DEFINED HERE */
+/* @import url(./animations.css); */
+
+/* @import url(./nprogress.css); */
+
+
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	min-width: 100vw !important;
+	min-height: 100vh !important;
+	height: 100% !important;
+	width: 100% !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	overflow-x: hidden !important;
+	font-weight: 400 !important;
+	font-family: var(--font-metro-sans) !important;
+}
+
+::-webkit-scrollbar {
+	@apply w-[0px] md:w-[5px] bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgb(116, 116, 117);
+	border-radius: 1px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #0006;
+}
+
+*::selection {
+	color: #000;
+	background: var(--color-user-select);
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+figure {
+	margin: 0 0 1rem;
+}
+
+img,
+svg {
+	vertical-align: middle;
+}
+
+table {
+	caption-side: bottom;
+	border-collapse: collapse;
+}
+
+button:focus:not(:focus-visible) {
+	outline: 0;
+}
+
+input,
+button,
+select,
+optgroup,
+textarea {
+	margin: 0;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	-webkit-box-shadow: 0 0 0px 1000px #3b3b3d inset !important;
+	box-shadow: 0 0 0px 1000px #e7e7e8ff inset !important;
+	-webkit-text-fill-color: #000 !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none !important;
+	margin: 0;
+}
+
+input[type='number'] {
+	-moz-appearance: textfield !important;
+}
+
+@media only screen and (max-width: 767.98px) {
+	body {
+		font-size: 16px;
+	}
+}
+
+p {
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin-top: 0;
+	margin-bottom: 0.5rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+
+h1 {
+	font-size: 2.5rem;
+}
+
+h2 {
+	font-size: 2rem;
+}
+
+h3 {
+	font-size: 1.75rem;
+}
+
+h4 {
+	font-size: 1.5rem;
+}
+
+h5 {
+	font-size: 1.25rem;
+}
+
+h6 {
+	font-size: 1rem;
+}
+
+ul,
+ol {
+	margin-top: 0;
+	margin-bottom: 1rem;
+	padding-left: 2rem;
+}
+
+ul {
+	list-style: disc;
+}
+
+ol {
+	list-style: decimal;
+}
+
+hr {
+	box-sizing: content-box;
+	height: 0;
+	overflow: visible;
+}
+

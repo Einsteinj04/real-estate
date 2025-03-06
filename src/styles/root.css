@@ -1,0 +1,40 @@
+:root {
+	/* --font-inter: Inter;
+	--font-metro-sans: MetroSans; */
+	
+	--color-user-select: #0065E76e;
+	--color-primary: #0065E7;
+	--swiper-theme-color: #0065E7 !important;
+
+	/* --primary: 215 100% 45%; */
+    /* --primary: #38e422; */
+    /* --primary: #32b821; */
+	/* #27c412 */
+	--primary: #31c964;
+	--secondary: #020122;
+	--text-primary: #cbd5e1;
+	/* #31c964 */
+ 
+	--success: 115 47% 51%;
+	--info: 195 96% 40%;
+	--warning: 45 100% 51%;
+	--danger: 354 70% 54%;
+
+	--background: 0 0% 13%; /** #202020 */
+	--foreground: 0 0% 0%;
+
+	--card: 0 0% 100%;
+	--card-foreground: 0 0% 0%;
+
+	--muted: 210 40% 96.1%;
+	--accent: 269 78% 88%;
+}
+
+.dark {
+	--background: 0 0% 0%;
+	--foreground: 0 0% 100%;
+	--card: 0 0% 0%;
+	--card-foreground: 0 0% 100%;
+	--muted: 210 40% 96.1%;
+	--accent: 269 78% 88%;
+}

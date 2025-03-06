@@ -1,0 +1,53 @@
+.layout {
+	@apply w-full h-full min-h-[100vh] max-w-[2000px] mx-auto;
+}
+
+.section-x {
+	@apply w-full px-[4%] md:px-[30px] lg:px-[70px];
+}
+
+.section-y {
+	@apply pt-[50px] md:pt-[80px] pb-[50px] md:pb-[60px];
+}
+
+/* Scroll bars */
+.scroll-design::-webkit-scrollbar {
+	@apply w-[0px] md:w-[4px] h-[0px];
+}
+
+.scroll-design::-webkit-scrollbar-thumb {
+	background: hsl(var(--primary) / 90);
+	border-radius: 20px;
+}
+
+.scroll-design::-webkit-scrollbar-thumb:hover {
+	background: #0006;
+}
+
+/* TinyMCE */
+.tox-statusbar__branding {
+	display: none !important;
+}
+
+.sticky-position {
+	position: -webkit-sticky;
+	position: sticky !important;
+	height: max-content !important;
+}
+
+
+.crossed {
+	background: 
+		linear-gradient(to top left,
+			rgba(0,0,0,0) 0%,
+			rgba(0,0,0,0) calc(50% - 0.8px),
+			#FFFFFF1A 50%,
+			rgba(0,0,0,0) calc(50% + 0.8px),
+			rgba(0,0,0,0) 100%),
+		linear-gradient(to top right,
+			rgba(0,0,0,0) 0%,
+			rgba(0,0,0,0) calc(50% - 0.8px),
+			#FFFFFF1A 50%,
+			rgba(0,0,0,0) calc(50% + 0.8px),
+			rgba(0,0,0,0) 100%);
+}
