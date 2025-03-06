@@ -23,16 +23,42 @@ interface AppleWebAppMetadata {
   statusBarStyle: string;
 }
 
+interface OpenGraphMetadata {
+  url: string;
+  title: string;
+  description: string;
+  siteName: string;
+  images: { url: string; width: number; height: number }[];
+  locale: string;
+  type: string;
+}
+
+interface TwitterMetadata {
+  card: string;
+  title: string;
+  description: string;
+  images: string[];
+  site: string;
+}
+
 interface Metadata {
+  title: string;
+  metadataBase?: URL;
+  alternates?: { canonical: string };
+  description?: string;
+  keywords?: string[];
+  openGraph?: OpenGraphMetadata;
+  twitter?: TwitterMetadata;
   applicationName: string;
   manifest: string;
   referrer: string;
   robots: RobotsMetadata;
   appleWebApp: AppleWebAppMetadata;
-  other: Record<string, string>; // Keeping this as Record<string, string> for flexibility
+  other: Record<string, string>;
 }
 
 const metadata: Metadata = {
+  title: SITE_DATA.NAME,
   applicationName: SITE_DATA.NAME,
   manifest: "/manifest.json",
   referrer: "origin-when-cross-origin",
@@ -58,6 +84,13 @@ const metadata: Metadata = {
     "apple-mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "black-translucent",
   },
+  twitter: {
+    card: "summary",
+    title: SITE_DATA.NAME,
+    description: "Your site description",
+    images: [`${SUBDOMAINS.ROOT}/icons/og.png`],
+    site: SITE_DATA.TWITTER_HANDLE,
+  },
 };
 
 // Define the expected properties for generateMetaData
@@ -72,8 +105,11 @@ const description = ""; // Consider setting dynamic description or use default v
 const ogDescription = ""; // Consider setting dynamic ogDescription or use default value
 const twitterDescription = ""; // Consider setting dynamic twitterDescription or use default value
 
-// Define the return type as Record<string, any> or a more specific type for better safety
-const generateMetaData = async ({ title, host, url }: MetaDataProps): Promise<Metadata | Record<string, any>> => {
+const generateMetaData = async ({
+  title,
+  host,
+  url,
+}: MetaDataProps): Promise<Metadata | null> => {
   switch (host) {
     case SUBDOMAINS.ROOT: // buildingplans.ng
       return {
@@ -122,7 +158,7 @@ const generateMetaData = async ({ title, host, url }: MetaDataProps): Promise<Me
         title,
         metadataBase: new URL(SUBDOMAINS.ADMIN),
       };
-    // The ACCOUNTS subdomain handling is commented out; uncomment and modify as needed
+    // Uncomment and modify as needed for other subdomains
     // case SUBDOMAINS.ACCOUNTS:
     //   return {
     //     ...metadata,
@@ -130,7 +166,7 @@ const generateMetaData = async ({ title, host, url }: MetaDataProps): Promise<Me
     //     metadataBase: new URL(SUBDOMAINS.ACCOUNTS),
     //   };
     default:
-      return {};
+      return null; // Return null for unhandled subdomains
   }
 };
 
