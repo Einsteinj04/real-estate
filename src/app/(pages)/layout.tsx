@@ -1,6 +1,6 @@
 
 import React, { ReactNode } from 'react';
-import {Header} from '@/components';
+import {Header, Footer} from '@/components';
 // import '@/styles/custom.css';
 
 export default async function WebPagesLayout({ children }: { children: ReactNode }) {
@@ -8,6 +8,7 @@ export default async function WebPagesLayout({ children }: { children: ReactNode
 		<div className='layout'>
 			<Header/>
 			{children}
+			<Footer/>
 		</div>
 	);
 }

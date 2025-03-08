@@ -136,7 +136,7 @@ const Client: React.FC = () => {
   return (
     <div className="w-full h-full">
       <HeroSection />
-      <div className="relative md:-bottom-[120vh] bg-white">
+      <div className="md:relative md:-bottom-[120vh] bg-white">
         <SearchPropertyCard />
         <FeaturedProperties  />
       </div>
